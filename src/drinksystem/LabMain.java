@@ -53,7 +53,7 @@ public final class LabMain {
             int brandChoiceId = scanner.nextInt();
             scanner.nextLine(); // Очистка буфера после nextInt()
 
-            // 1. CREATIONAL: Abstract Factory
+            // 1. CREATION: Abstract Factory
             // Фабрика скрывает создание конкретных классов (BlackTea, GreenTea)
             DrinkFactory selectedBrandFactory = (brandChoiceId == 1) ? new LiptonFactory() : new NescafeFactory();
 

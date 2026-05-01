@@ -5,13 +5,6 @@ import java.util.Objects;
 /**
  * Базовый иммутабельный класс напитка.
  * Реализует интерфейс DrinkComponent, предоставляя основную функциональность.
- *
- * Иммутабельность достигнута через:
- * - final класс (запрещено наследование)
- * - private final поля (только для чтения)
- * - отсутствие сеттеров
- * - Objects.requireNonNull() в конструкторе (защита от null)
- *
  * Паттерн: основа для Decorator и Composite
  */
 public class BaseDrink implements DrinkComponent {
@@ -20,7 +13,7 @@ public class BaseDrink implements DrinkComponent {
     private final double price;
 
     /**
-     * Конструктор с параметрами в том же порядке, что и поля (стандарт 11).
+     * Конструктор с параметрами в том же порядке, что и поля
      * @param name название напитка (не null)
      * @param price стоимость в рублях
      */
@@ -42,14 +35,9 @@ public class BaseDrink implements DrinkComponent {
 
     @Override
     public void accept(MenuVisitor visitor) {
-        // Двойная диспетчеризация для Visitor (пока MenuVisitor не создан, будет ошибка)
-        // Временно можно закомментировать или создать заглушку
         visitor.visit(this);
     }
 
-    /**
-     * Геттер для name (иммутабельный класс — только чтение, нет сеттеров).
-     */
     public String getName() {
         return name;
     }
