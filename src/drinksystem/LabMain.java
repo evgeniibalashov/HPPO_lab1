@@ -6,9 +6,6 @@ import java.util.Scanner;
 import java.util.Objects;
 
 /**
- * Точка входа в приложение.
- * Реализует консольное взаимодействие с пользователем.
- *
  * Архитектура приложения демонстрирует 5 паттернов:
  * 1. Abstract Factory (выбор бренда)
  * 2. Decorator (добавление сахара/молока)
@@ -18,12 +15,11 @@ import java.util.Objects;
  */
 public final class LabMain {
 
-    // Приватный конструктор запрещает создание экземпляров (стандарт для utility-классов)
     private LabMain() {
     }
 
     public static void main(String[] args) {
-        // Инициализация Scanner при объявлении (стандарт 13, 15)
+
         Scanner userInputScanner = new Scanner(System.in);
 
         runApplication(userInputScanner);
@@ -31,17 +27,13 @@ public final class LabMain {
         userInputScanner.close();
     }
 
-    /**
-     * Основной цикл взаимодействия с пользователем.
-     */
     private static void runApplication(Scanner scanner) {
         System.out.println(" Система заказов напитков ");
 
         // Список для хранения выбранных напитков перед формированием заказа
-        // Суффикс List указывает на тип коллекции (стандарт 6)
         List<DrinkComponent> orderItemList = new ArrayList<>();
 
-        // Флаг активности цикла (стандарт 5: явное указание, что это флаг)
+
         boolean isOrderingActiveFlag = true;
 
         while (isOrderingActiveFlag) {
