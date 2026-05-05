@@ -1,8 +1,6 @@
 package drinksystem;
 
-/**
- * Конкретная фабрика бренда Nescafe.
- */
+
 public final class NescafeFactory implements DrinkFactory {
 
     @Override

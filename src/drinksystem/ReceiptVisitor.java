@@ -1,9 +1,6 @@
 package drinksystem;
 
-/**
- * Visitor для формирования текстового чека.
- * Собирает описания всех компонентов в одну строку.
- */
+
 public final class ReceiptVisitor implements MenuVisitor {
     private final StringBuilder receiptBuilder = new StringBuilder();
 

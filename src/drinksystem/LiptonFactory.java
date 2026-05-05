@@ -1,9 +1,6 @@
 package drinksystem;
 
-/**
- * Конкретная фабрика бренда Lipton.
- * Инкапсулирует логику создания напитков именно этого производителя.
- */
+
 public final class LiptonFactory implements DrinkFactory {
 
     @Override

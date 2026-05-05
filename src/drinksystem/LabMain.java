@@ -5,14 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Objects;
 
-/**
- * Архитектура приложения демонстрирует 5 паттернов:
- * 1. Abstract Factory (выбор бренда)
- * 2. Decorator (добавление сахара/молока)
- * 3. Composite (сборка заказа в Меню)
- * 4. Visitor (расчет цены и печать чека)
- * 5. Strategy (выбор скидки)
- */
 public final class LabMain {
 
     private LabMain() {
@@ -30,9 +22,7 @@ public final class LabMain {
     private static void runApplication(Scanner scanner) {
         System.out.println(" Система заказов напитков ");
 
-        // Список для хранения выбранных напитков перед формированием заказа
         List<DrinkComponent> orderItemList = new ArrayList<>();
-
 
         boolean isOrderingActiveFlag = true;
 
@@ -43,10 +33,10 @@ public final class LabMain {
             System.out.print("Ваш выбор (1-2): ");
 
             int brandChoiceId = scanner.nextInt();
-            scanner.nextLine(); // Очистка буфера после nextInt()
+            scanner.nextLine();
 
-            // 1. CREATION: Abstract Factory
-            // Фабрика скрывает создание конкретных классов (BlackTea, GreenTea)
+            // Abstract Factory
+
             DrinkFactory selectedBrandFactory = (brandChoiceId == 1) ? new LiptonFactory() : new NescafeFactory();
 
             DrinkComponent baseDrinkComponent = selectBaseDrink(scanner, selectedBrandFactory);
@@ -67,9 +57,7 @@ public final class LabMain {
         }
     }
 
-    /**
-     * Выбор базового напитка (Чай или Кофе).
-     */
+
     private static DrinkComponent selectBaseDrink(Scanner scanner, DrinkFactory factory) {
         System.out.println( "Выберите напиток:");
         System.out.println("1. Чай");
@@ -79,14 +67,13 @@ public final class LabMain {
         int drinkChoiceId = scanner.nextInt();
         scanner.nextLine();
 
-        // Фабрика возвращает нужный объект
         return (drinkChoiceId == 1) ? factory.createTea() : factory.createCoffee();
     }
 
-    /**
-     * Цикл добавления добавок к напитку.
-     * Демонстрация паттерна Decorator.
-     */
+
+
+      // Decorator.
+
     private static DrinkComponent applyDecorators(Scanner scanner, DrinkComponent currentDrink) {
         DrinkComponent decoratedDrink = currentDrink;
         boolean isAddingIngredientsFlag = true;
@@ -115,34 +102,31 @@ public final class LabMain {
         return decoratedDrink;
     }
 
-    /**
-     * Формирование итогового заказа, расчет и вывод.
-     * Демонстрация Composite, Visitor и Strategy.
-     */
+
+      // Composite, Visitor и Strategy.
+
     private static void processOrder(List<DrinkComponent> orderItemList, Scanner scanner) {
         System.out.println(" Оформление заказа ");
 
-        // 3. STRUCTURAL: Composite
-        // Создаем единый объект Menu, который объединяет все напитки
+        // Composite
+
         Menu finalUserMenu = new Menu("Заказ #" + System.currentTimeMillis());
         for (DrinkComponent item : orderItemList) {
             finalUserMenu.addItem(item);
         }
 
-        // 4. BEHAVIORAL: Visitor
-        // Используем Visitor для генерации чека (отделяем форматирование от данных)
+        // Visitor
         ReceiptVisitor receiptPrinter = new ReceiptVisitor();
         finalUserMenu.accept(receiptPrinter);
         System.out.println("Ваш чек:");
         System.out.println(receiptPrinter.printReceipt());
 
-        // Используем Visitor для подсчета суммы
         PriceVisitor priceCalculator = new PriceVisitor();
         finalUserMenu.accept(priceCalculator);
         double rawPrice = priceCalculator.getTotalPrice();
 
-        // 5. BEHAVIORAL: Strategy
-        // Выбор алгоритма расчета цены (скидка или нет)
+        // Strategy
+
         System.out.println("Выберите тип клиента:");
         System.out.println("1. Обычный");
         System.out.println("2. Студент (скидка 10%)");
@@ -151,7 +135,7 @@ public final class LabMain {
         int clientTypeId = scanner.nextInt();
         scanner.nextLine();
 
-        // Подменяем стратегию на лету без изменения кода расчета
+        
         DiscountStrategy pricingStrategy = (clientTypeId == 2)
                 ? new StudentDiscountStrategy()
                 : new RegularPriceStrategy();

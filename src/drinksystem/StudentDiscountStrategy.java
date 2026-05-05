@@ -1,8 +1,6 @@
 package drinksystem;
 
-/**
- * Стратегия скидки для студентов (10%).
- */
+
 public final class StudentDiscountStrategy implements DiscountStrategy {
     private static final double DISCOUNT_RATE = 0.9; // 10% скидка = умножаем на 0.9
 

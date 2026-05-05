@@ -1,9 +1,6 @@
 package drinksystem;
 
-/**
- * Visitor для подсчета итоговой стоимости.
- * Проходит по всей структуре (меню -> напитки -> добавки) и суммирует цены.
- */
+
 public final class PriceVisitor implements MenuVisitor {
     private double totalPrice;
 
