@@ -3,14 +3,14 @@ package drinksystem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Objects;
+
 
 public final class LabMain {
 
     private LabMain() {
     }
 
-    public static void main(String[] args) {
+    static void main() {
 
         Scanner userInputScanner = new Scanner(System.in);
 
@@ -135,7 +135,7 @@ public final class LabMain {
         int clientTypeId = scanner.nextInt();
         scanner.nextLine();
 
-        
+
         DiscountStrategy pricingStrategy = (clientTypeId == 2)
                 ? new StudentDiscountStrategy()
                 : new RegularPriceStrategy();

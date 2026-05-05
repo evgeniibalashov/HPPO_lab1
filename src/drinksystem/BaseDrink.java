@@ -2,9 +2,7 @@ package drinksystem;
 
 import java.util.Objects;
 
-/**
- * Реализует интерфейс DrinkComponent
- */
+
 public class BaseDrink implements DrinkComponent {
     private final String name;
     private final double price;
@@ -27,9 +25,5 @@ public class BaseDrink implements DrinkComponent {
     @Override
     public void accept(MenuVisitor visitor) {
         visitor.visit(this);
-    }
-
-    public String getName() {
-        return name;
     }
 }

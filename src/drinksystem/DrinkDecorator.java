@@ -24,8 +24,4 @@ public abstract class DrinkDecorator implements DrinkComponent {
     public void accept(MenuVisitor visitor) {
         visitor.visit(this);
     }
-
-    public DrinkComponent getWrapped() {
-        return wrapped;
-    }
 }
