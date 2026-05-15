@@ -24,6 +24,6 @@ public class BaseDrink implements DrinkComponent {
 
     @Override
     public void accept(MenuVisitor visitor) {
-        visitor.visit(this);
+        visitor.visit((DrinkComponent) this);
     }
 }

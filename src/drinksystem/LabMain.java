@@ -110,7 +110,7 @@ public final class LabMain {
 
         // Composite
 
-        Menu finalUserMenu = new Menu("Заказ #" + System.currentTimeMillis());
+        Order finalUserMenu = new Order("Заказ #" + System.currentTimeMillis());
         for (DrinkComponent item : orderItemList) {
             finalUserMenu.addItem(item);
         }

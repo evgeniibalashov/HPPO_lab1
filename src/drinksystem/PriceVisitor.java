@@ -5,19 +5,14 @@ public final class PriceVisitor implements MenuVisitor {
     private double totalPrice;
 
     @Override
-    public void visit(BaseDrink drink) {
-        totalPrice += drink.getPrice();
+    public void visit(DrinkComponent component) {
+        totalPrice += component.getPrice();
     }
 
     @Override
-    public void visit(DrinkDecorator decorator) {
-        totalPrice += decorator.getPrice();
-    }
+    public void visit(Order order) {
 
-    @Override
-    public void visit(Menu menu) {
-
-        for (DrinkComponent item : menu.getItemList()) {
+        for (DrinkComponent item : order.getItemList()) {
             item.accept(this);
         }
     }

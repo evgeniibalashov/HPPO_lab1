@@ -22,6 +22,6 @@ public abstract class DrinkDecorator implements DrinkComponent {
 
     @Override
     public void accept(MenuVisitor visitor) {
-        visitor.visit(this);
+        visitor.visit((DrinkComponent) this);
     }
 }

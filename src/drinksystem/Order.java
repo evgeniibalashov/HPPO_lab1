@@ -6,7 +6,7 @@ import java.util.Objects;
 
 
 
-public final class Menu implements DrinkComponent {
+public final class Order implements DrinkComponent {
 
 
     private final String title;
@@ -15,7 +15,7 @@ public final class Menu implements DrinkComponent {
     private final List<DrinkComponent> itemList = new ArrayList<>();
 
 
-    public Menu(String title) {
+    public Order(String title) {
         this.title = Objects.requireNonNull(title, "Название меню не может быть null");
     }
 
