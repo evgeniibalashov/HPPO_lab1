@@ -1,7 +1,9 @@
 package drinksystem;
 
+import org.springframework.stereotype.Component;
 
-public final class StudentDiscountStrategy implements DiscountStrategy {
+@Component
+public class StudentDiscountStrategy implements DiscountStrategy {
     private static final double DISCOUNT_RATE = 0.9;
 
     @Override

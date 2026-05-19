@@ -4,22 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import drinksystem.config.AppConfig;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public final class LabMain {
 
     private LabMain() {
     }
 
-    static void main() {
+    public static void main(String[] args) {
+        System.out.println("=== ЗАПУСК SPRING CONTEXT ===");
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        System.out.println("=== SPRING ГОТОВ ===\n");
+
+        LiptonFactory liptonFactory = context.getBean(LiptonFactory.class);
+        NescafeFactory nescafeFactory = context.getBean(NescafeFactory.class);
+        RegularPriceStrategy regularStrategy = context.getBean(RegularPriceStrategy.class);
+        StudentDiscountStrategy studentStrategy = context.getBean(StudentDiscountStrategy.class);
+        PriceVisitor priceVisitor = context.getBean(PriceVisitor.class);
+        ReceiptVisitor receiptVisitor = context.getBean(ReceiptVisitor.class);
 
         Scanner userInputScanner = new Scanner(System.in);
-
-        runApplication(userInputScanner);
-
+        runApplication(userInputScanner, liptonFactory, nescafeFactory,
+                regularStrategy, studentStrategy, priceVisitor, receiptVisitor);
         userInputScanner.close();
+
+        ((AnnotationConfigApplicationContext) context).close();
     }
 
-    private static void runApplication(Scanner scanner) {
+    private static void runApplication(Scanner scanner,
+                                       LiptonFactory liptonFactory,
+                                       NescafeFactory nescafeFactory,
+                                       RegularPriceStrategy regularStrategy,
+                                       StudentDiscountStrategy studentStrategy,
+                                       PriceVisitor priceVisitor,
+                                       ReceiptVisitor receiptVisitor) {
         System.out.println(" Система заказов напитков ");
 
         List<DrinkComponent> orderItemList = new ArrayList<>();
@@ -37,7 +57,7 @@ public final class LabMain {
 
             // Abstract Factory
 
-            DrinkFactory selectedBrandFactory = (brandChoiceId == 1) ? new LiptonFactory() : new NescafeFactory();
+            DrinkFactory selectedBrandFactory = (brandChoiceId == 1) ? liptonFactory : nescafeFactory;
 
             DrinkComponent baseDrinkComponent = selectBaseDrink(scanner, selectedBrandFactory);
             DrinkComponent finalDrinkComponent = applyDecorators(scanner, baseDrinkComponent);
@@ -51,7 +71,7 @@ public final class LabMain {
         }
 
         if (!orderItemList.isEmpty()) {
-            processOrder(orderItemList, scanner);
+            processOrder(orderItemList, scanner, priceVisitor, receiptVisitor, regularStrategy, studentStrategy);
         } else {
             System.out.println("Заказ пуст. До свидания!");
         }
@@ -105,7 +125,9 @@ public final class LabMain {
 
       // Composite, Visitor и Strategy.
 
-    private static void processOrder(List<DrinkComponent> orderItemList, Scanner scanner) {
+    private static void processOrder(List<DrinkComponent> orderItemList, Scanner scanner,
+                                     PriceVisitor priceVisitor, ReceiptVisitor receiptVisitor,
+                                     RegularPriceStrategy regularStrategy, StudentDiscountStrategy studentStrategy) {
         System.out.println(" Оформление заказа ");
 
         // Composite
@@ -116,14 +138,12 @@ public final class LabMain {
         }
 
         // Visitor
-        ReceiptVisitor receiptPrinter = new ReceiptVisitor();
-        finalUserMenu.accept(receiptPrinter);
+        finalUserMenu.accept(receiptVisitor);
         System.out.println("Ваш чек:");
-        System.out.println(receiptPrinter.printReceipt());
+        System.out.println(receiptVisitor.printReceipt());
 
-        PriceVisitor priceCalculator = new PriceVisitor();
-        finalUserMenu.accept(priceCalculator);
-        double rawPrice = priceCalculator.getTotalPrice();
+        finalUserMenu.accept(priceVisitor);
+        double rawPrice = priceVisitor.getTotalPrice();
 
         // Strategy
 
@@ -137,8 +157,8 @@ public final class LabMain {
 
 
         DiscountStrategy pricingStrategy = (clientTypeId == 2)
-                ? new StudentDiscountStrategy()
-                : new RegularPriceStrategy();
+                ? studentStrategy
+                : regularStrategy;
 
         double finalPrice = pricingStrategy.apply(rawPrice);
 

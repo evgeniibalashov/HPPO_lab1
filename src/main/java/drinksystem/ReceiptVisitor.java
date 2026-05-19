@@ -1,7 +1,9 @@
 package drinksystem;
 
+import org.springframework.stereotype.Component;
 
-public final class ReceiptVisitor implements MenuVisitor {
+@Component
+public class ReceiptVisitor implements MenuVisitor {
     private final StringBuilder receiptBuilder = new StringBuilder();
 
     @Override

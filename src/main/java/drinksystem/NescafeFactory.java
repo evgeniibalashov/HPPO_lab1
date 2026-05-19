@@ -1,7 +1,9 @@
 package drinksystem;
 
+import org.springframework.stereotype.Component;
 
-public final class NescafeFactory implements DrinkFactory {
+@Component
+public class NescafeFactory implements DrinkFactory {
 
     @Override
     public DrinkComponent createTea() {

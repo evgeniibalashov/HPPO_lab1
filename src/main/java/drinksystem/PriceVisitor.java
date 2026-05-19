@@ -1,7 +1,9 @@
 package drinksystem;
 
+import org.springframework.stereotype.Component;
 
-public final class PriceVisitor implements MenuVisitor {
+@Component
+public class PriceVisitor implements MenuVisitor {
     private double totalPrice;
 
     @Override
