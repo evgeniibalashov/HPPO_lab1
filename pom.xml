@@ -14,21 +14,21 @@
     </properties>
 
     <dependencies>
-        <!-- Основной Spring Context -->
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>6.0.11</version>
         </dependency>
 
-        <!-- Для работы аннотаций (PostConstruct и т.д.) -->
+
         <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
             <version>2.1.1</version>
         </dependency>
 
-        <!-- Для AOP (Логирование) -->
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>

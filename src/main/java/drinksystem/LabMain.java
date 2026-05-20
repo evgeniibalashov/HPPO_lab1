@@ -14,9 +14,9 @@ public final class LabMain {
     }
 
     public static void main(String[] args) {
-        System.out.println("=== ЗАПУСК SPRING CONTEXT ===");
+        System.out.println("  ЗАПУСК SPRING CONTEXT  ");
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-        System.out.println("=== SPRING ГОТОВ ===\n");
+        System.out.println("  SPRING ГОТОВ  \n");
 
         LiptonFactory liptonFactory = context.getBean(LiptonFactory.class);
         NescafeFactory nescafeFactory = context.getBean(NescafeFactory.class);
@@ -111,7 +111,6 @@ public final class LabMain {
             if (ingredientChoiceId == 0) {
                 isAddingIngredientsFlag = false;
             } else if (ingredientChoiceId == 1) {
-                // Decorator оборачивает текущий напиток, добавляя функциональность
                 decoratedDrink = new SugarDecorator(decoratedDrink);
                 System.out.println("   + Сахар. Новая цена: " + decoratedDrink.getPrice() + "р");
             } else if (ingredientChoiceId == 2) {

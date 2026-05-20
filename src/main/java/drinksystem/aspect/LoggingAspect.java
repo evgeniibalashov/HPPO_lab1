@@ -13,6 +13,6 @@ public class LoggingAspect {
             "execution(* drinksystem.*Strategy.*(..)) || " +
             "execution(* drinksystem.*Visitor.*(..))")
     public void logSpringBeanCall(JoinPoint joinPoint) {
-        System.out.println(">>> [SPRING AOP] Вызван: " + joinPoint.getSignature().getName());
+        System.out.println("[SPRING AOP] Вызван метод: " + joinPoint.getSignature().getName());
     }
 }
