@@ -60,13 +60,10 @@ public class DrinkServer implements Runnable {
                 : new RegularPriceStrategy();
         double finalPrice = strategy.apply(drink.getPrice());
 
-        ReceiptVisitor receiptVisitor = new ReceiptVisitor();
-        Order tempOrder = new Order("Заказ #" + order.getOrderId());
-        tempOrder.addItem(drink);
-        tempOrder.accept(receiptVisitor);
-
+        // Печатаем чек напрямую (без Order)
         System.out.println("Бариста завершил обработку для " + order.getClientName() + ":");
-        System.out.println(receiptVisitor.printReceipt().replace("ЗАКАЗ:", "ЗАКАЗ для " + order.getClientName() + ":"));
+        System.out.println("ЗАКАЗ для " + order.getClientName() + ": Заказ #" + order.getOrderId());
+        System.out.println(drink.getDescription() + " | " + drink.getPrice() + "p");
         System.out.println("Цена со скидкой для " + order.getClientName() + ": " + finalPrice + "p");
         System.out.println("----------------------------------------");
     }
